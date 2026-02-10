@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Google Calendar Credentials (SENSITIVE)
+credentials.json
+token.json
+
+# Local config if needed (optional, keeping config.py tracked for now as it has the URL)
+# config_local.py
+
+# Logs and Debug
+*.log
+debug_*.html
+debug_*.png
+debug_*.xml
+
+# OS
+.DS_Store
