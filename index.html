@@ -215,11 +215,6 @@
     <div class="badge">UC Physics Learning Center</div>
     <h1>PLC Session Calendars</h1>
     <p>Scan a QR code or click <em>Subscribe</em> to add weekly PLC sessions directly to your calendar app. Calendars update automatically every week.</p>
-    
-    <div id="android-instructions" style="display:none; margin: 24px auto 0; font-size: 0.85rem; color: #64748b; background: rgba(0,0,0,0.03); max-width:520px; padding: 14px; border-radius: 10px; text-align: left; line-height: 1.5; border: 1px solid var(--border);">
-      <strong>Android Users:</strong> Directly downloading the file performs a one-time import without auto-updates.<br><br>
-      To receive <strong>weekly auto-updates</strong>, you must paste the desired calendar link (e.g. <code>https://ilyaask.github.io/plcscheduler/phys1.ics</code>) into Google Calendar on a desktop computer using <em>Settings &rarr; Add Calendar &rarr; From URL</em>.
-    </div>
     <div class="stats">
       <div class="stat">
         <span class="stat-dot"></span>
@@ -310,10 +305,11 @@
     // --- OS Detection & Dynamic Buttons ---
     const isApple = /Mac|iPod|iPhone|iPad/.test(navigator.userAgent) || /Mac|iPod|iPhone|iPad/.test(navigator.platform);
     if (!isApple) {
-      document.getElementById('android-instructions').style.display = 'block';
-      document.querySelectorAll('.btn-subscribe').forEach(btn => {
-        btn.href = btn.href.replace('webcal://', 'https://');
-        btn.innerHTML = `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download / Import</span>`;
+      document.querySelector('.card[data-level="1"] .btn-subscribe').href = 'qr1.html';
+      document.querySelector('.card[data-level="2"] .btn-subscribe').href = 'qr2.html';
+      document.querySelector('.card[data-level="3"] .btn-subscribe').href = 'qr3.html';
+      document.querySelectorAll('.btn-subscribe span').forEach(span => {
+        span.textContent = "Subscribe / Instructions";
       });
     }
 
