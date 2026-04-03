@@ -208,7 +208,7 @@
         </svg>
         Subscribe to Calendar
       </a>
-      <a class="btn-download" href="phys1.ics" download>Download .ics file</a>
+      <a class="btn-download" href="phys1.ics">Open in Calendar App</a>
     </div>
 
     <!-- Physics II -->
@@ -222,7 +222,7 @@
         </svg>
         Subscribe to Calendar
       </a>
-      <a class="btn-download" href="phys2.ics" download>Download .ics file</a>
+      <a class="btn-download" href="phys2.ics">Open in Calendar App</a>
     </div>
 
     <!-- Physics III -->
@@ -236,7 +236,7 @@
         </svg>
         Subscribe to Calendar
       </a>
-      <a class="btn-download" href="phys3.ics" download>Download .ics file</a>
+      <a class="btn-download" href="phys3.ics">Open in Calendar App</a>
     </div>
 
   </div>
@@ -247,18 +247,18 @@
   </footer>
 
   <script>
-    // Base URL for the hosted files
-    const BASE = "https://ilyaask.github.io/plcscheduler/";
+    // QR codes encode webcal:// so scanning with iPhone camera opens Calendar directly
+    const WEBCAL = "webcal://ilyaask.github.io/plcscheduler/";
     const qrSize = Math.min(176, Math.round(window.innerWidth * 0.55));
     const opts = { width: qrSize, margin: 0, color: { dark: "#0d0f14", light: "#ffffff" } };
 
-    QRCode.toCanvas(document.createElement("canvas"), BASE + "phys1.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys1.ics", opts, (err, canvas) => {
       if (!err) document.getElementById("qr1").appendChild(canvas);
     });
-    QRCode.toCanvas(document.createElement("canvas"), BASE + "phys2.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys2.ics", opts, (err, canvas) => {
       if (!err) document.getElementById("qr2").appendChild(canvas);
     });
-    QRCode.toCanvas(document.createElement("canvas"), BASE + "phys3.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys3.ics", opts, (err, canvas) => {
       if (!err) document.getElementById("qr3").appendChild(canvas);
     });
   </script>
