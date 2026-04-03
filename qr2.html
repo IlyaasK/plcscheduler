@@ -29,6 +29,13 @@
       </svg>
       <span id="sub-text">Add to Calendar</span>
     </a>
+
+    <div id="android-instructions" style="display:none; margin-top:20px; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 14px; border-radius: 10px; text-align: left; line-height: 1.5; border: 1px solid #e2e8f0;">
+      <strong>Android Users:</strong> The button above performs a one-time import.<br><br>
+      To receive <strong>weekly auto-updates</strong>, copy the link below and paste it into Google Calendar on a desktop computer using <em>Settings &rarr; Add Calendar &rarr; From URL</em>:
+      <div style="background: #e2e8f0; padding: 8px 10px; margin-top: 10px; border-radius: 6px; word-break: break-all; font-family: monospace; font-size: 0.75rem; color: #0f172a;">https://ilyaask.github.io/plcscheduler/phys2.ics</div>
+    </div>
+
     <a href="index.html" class="back">View all calendars</a>
   </div>
   <script>
@@ -45,6 +52,7 @@
       btn.href = "https://ilyaask.github.io/plcscheduler/phys2.ics";
       text.textContent = "Download / Import File";
       icon.innerHTML = '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>';
+      document.getElementById('android-instructions').style.display = 'block';
     }
   </script>
 </body>
