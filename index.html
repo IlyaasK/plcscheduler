@@ -185,6 +185,39 @@
 
     /* calendar icon SVG inline */
     .icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── stats bar ── */
+    .stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .stat strong { color: var(--text); font-weight: 600; }
+    .stat-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .4; }
+    }
   </style>
 </head>
 <body>
@@ -193,6 +226,20 @@
     <div class="badge">UC Physics Learning Center</div>
     <h1>PLC Session Calendars</h1>
     <p>Scan a QR code or click <em>Subscribe</em> to add weekly PLC sessions directly to your calendar app. Calendars update automatically every week.</p>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-dot"></span>
+        <span>Active</span>
+      </div>
+      <div class="stat" id="stat-visits">
+        <span>&#128100;</span>
+        <span><strong id="visit-count">...</strong> page visits</span>
+      </div>
+      <div class="stat" id="stat-subs">
+        <span>&#128197;</span>
+        <span><strong id="sub-count">...</strong> subscriptions</span>
+      </div>
+    </div>
   </header>
 
   <div class="cards">
@@ -243,8 +290,14 @@
 
   <footer>
     Calendars are regenerated every Sunday night and reflect the upcoming week's PLC sessions.<br/>
-    Physics Learning Center · Geology-Physics 307 · University of Cincinnati
+    Physics Learning Center · Geology-Physics 307 · University of Cincinnati<br/>
+    <span style="margin-top:6px;display:inline-block">&#128231; Issues? Contact <a href="mailto:kapadiiy@mail.uc.edu" style="color:inherit">Ilyaas Kapadia &mdash; kapadiiy@mail.uc.edu</a></span>
   </footer>
+
+  <!-- Hidden hits counters (1px) to record page visits and subscribe clicks -->
+  <!-- Main page visit counter -->
+  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://ilyaask.github.io/plcscheduler/index.html&count_bg=%2300000000&title_bg=%2300000000&edge_flat=true" style="display:none" id="hit-page" />
+  <!-- Subscribe click counters (loaded on demand) -->
 
   <script>
     // QR codes encode webcal:// so scanning with iPhone camera opens Calendar directly
@@ -260,6 +313,40 @@
     });
     QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys3.ics", opts, (err, canvas) => {
       if (!err) document.getElementById("qr3").appendChild(canvas);
+    });
+
+    // ── counters ──────────────────────────────────────────────────────────────
+    const HITS = "https://hits.seeyoufarm.com/api/count";
+
+    // Fetch current visit count (read-only endpoint)
+    fetch(`${HITS}/get/badge.svg?url=https://ilyaask.github.io/plcscheduler/index.html`)
+      .then(r => r.text())
+      .then(svg => {
+        const m = svg.match(/>([\d,]+)<\/text>/g);
+        if (m && m.length >= 2) {
+          // hits badge SVG has two counts: today and total; we want total (last)
+          const total = m[m.length - 1].replace(/<[^>]+>/g, "");
+          document.getElementById("visit-count").textContent = total;
+        }
+      }).catch(() => document.getElementById("stat-visits").style.display = "none");
+
+    // Fetch subscribe click count
+    fetch(`${HITS}/get/badge.svg?url=https://ilyaask.github.io/plcscheduler/subscribed`)
+      .then(r => r.text())
+      .then(svg => {
+        const m = svg.match(/>([\d,]+)<\/text>/g);
+        if (m && m.length >= 2) {
+          const total = m[m.length - 1].replace(/<[^>]+>/g, "");
+          document.getElementById("sub-count").textContent = total;
+        }
+      }).catch(() => document.getElementById("stat-subs").style.display = "none");
+
+    // Track each subscribe button click
+    document.querySelectorAll(".btn-subscribe, .btn-download").forEach(btn => {
+      btn.addEventListener("click", () => {
+        // Ping the subscribe counter (fire-and-forget)
+        new Image().src = `${HITS}/incr/badge.svg?url=https://ilyaask.github.io/plcscheduler/subscribed&count_bg=%2300000000&title_bg=%2300000000`;
+      });
     });
   </script>
 </body>
