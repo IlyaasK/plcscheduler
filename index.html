@@ -239,6 +239,10 @@
         <span>&#128197;</span>
         <span><strong id="sub-count">...</strong> subscriptions</span>
       </div>
+      <div class="stat" id="stat-scans">
+        <span>&#128247;</span>
+        <span><strong id="scan-count">...</strong> QR scans</span>
+      </div>
     </div>
   </header>
 
@@ -300,18 +304,19 @@
   <!-- Subscribe click counters (loaded on demand) -->
 
   <script>
-    // QR codes encode webcal:// so scanning with iPhone camera opens Calendar directly
-    const WEBCAL = "webcal://ilyaask.github.io/plcscheduler/";
+    // QR codes point to interactive landing pages so scans are tracked and OS intent works
+    const QR_BASE = "https://ilyaask.github.io/plcscheduler/";
+    const WEBCAL  = "webcal://ilyaask.github.io/plcscheduler/";
     const qrSize = Math.min(176, Math.round(window.innerWidth * 0.55));
     const opts = { width: qrSize, margin: 0, color: { dark: "#0d0f14", light: "#ffffff" } };
 
-    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys1.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), QR_BASE + "qr1.html", opts, (err, canvas) => {
       if (!err) document.getElementById("qr1").appendChild(canvas);
     });
-    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys2.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), QR_BASE + "qr2.html", opts, (err, canvas) => {
       if (!err) document.getElementById("qr2").appendChild(canvas);
     });
-    QRCode.toCanvas(document.createElement("canvas"), WEBCAL + "phys3.ics", opts, (err, canvas) => {
+    QRCode.toCanvas(document.createElement("canvas"), QR_BASE + "qr3.html", opts, (err, canvas) => {
       if (!err) document.getElementById("qr3").appendChild(canvas);
     });
 
@@ -340,6 +345,20 @@
           document.getElementById("sub-count").textContent = total;
         }
       }).catch(() => document.getElementById("stat-subs").style.display = "none");
+
+    // Fetch QR scan count (sum of all three physics levels)
+    const scanUrls = ["scan-phys1", "scan-phys2", "scan-phys3"];
+    Promise.all(scanUrls.map(slug =>
+      fetch(`${HITS}/get/badge.svg?url=https://ilyaask.github.io/plcscheduler/${slug}`)
+        .then(r => r.text())
+        .then(svg => {
+          const m = svg.match(/>([\d,]+)<\/text>/g);
+          return m && m.length >= 2 ? parseInt(m[m.length-1].replace(/<[^>]+>/g,"").replace(/,/g,"")) : 0;
+        }).catch(() => 0)
+    )).then(counts => {
+      const total = counts.reduce((a,b) => a+b, 0);
+      document.getElementById("scan-count").textContent = total.toLocaleString();
+    }).catch(() => document.getElementById("stat-scans").style.display = "none");
 
     // Track each subscribe button click
     document.querySelectorAll(".btn-subscribe, .btn-download").forEach(btn => {

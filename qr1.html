@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Physics I Calendar</title>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background: #0d0f14; color: #e8eaf0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; text-align: center; }
+    .container { background: #13161e; border: 1px solid #1f2330; border-top: 4px solid #f97316; border-radius: 20px; padding: 40px 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    h1 { font-size: 1.5rem; margin-bottom: 8px; color: #f97316; }
+    p { color: #6b7280; font-size: 0.95rem; margin-bottom: 32px; line-height: 1.5; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; background: #f97316; color: #fff; text-decoration: none; padding: 16px; border-radius: 14px; font-weight: 600; font-size: 1.05rem; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
+    .btn:active { transform: scale(0.96); }
+    .icon { width: 20px; height: 20px; margin-right: 10px; }
+    .back { display: block; margin-top: 24px; color: #6b7280; font-size: 0.85rem; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Physics I</h1>
+    <p>Tap below to add the weekly PLC sessions (PHYS 1051, 2001, 2005) directly to your calendar app.</p>
+    <a href="webcal://ilyaask.github.io/plcscheduler/phys1.ics" class="btn">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      Add to Calendar
+    </a>
+    <a href="index.html" class="back">View all calendars</a>
+  </div>
+  <script>
+    // Record QR scan
+    new Image().src = "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://ilyaask.github.io/plcscheduler/scan-phys1&count_bg=%2300000000&title_bg=%2300000000";
+    
+    // Auto-click works in some browsers, but if blocked, the huge button is right there
+    setTimeout(() => {
+      window.location.href = "webcal://ilyaask.github.io/plcscheduler/phys1.ics";
+    }, 500);
+  </script>
+</body>
+</html>
