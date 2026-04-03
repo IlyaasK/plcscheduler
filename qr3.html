@@ -41,8 +41,7 @@
     const icon = document.getElementById('sub-icon');
 
     const iosUrl = "webcal://ilyaask.github.io/plcscheduler/phys3.ics";
-    const rawUrl = "https://ilyaask.github.io/plcscheduler/phys3.ics";
-    const gcalUrl = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(rawUrl);
+    const gcalUrl = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(iosUrl);
 
     if (isApple) {
       btn.href = iosUrl;
