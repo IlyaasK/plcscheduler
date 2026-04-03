@@ -29,6 +29,7 @@
       </svg>
       <span id="sub-text">Add to Calendar</span>
     </a>
+    <a href="https://ilyaask.github.io/plcscheduler/phys3.ics" id="sub-fallback" class="back" style="display:none; margin-top:14px; text-decoration:underline;">Not using Google? Download file</a>
     <a href="index.html" class="back">View all calendars</a>
   </div>
   <script>
@@ -39,12 +40,17 @@
     const text = document.getElementById('sub-text');
     const icon = document.getElementById('sub-icon');
 
+    const iosUrl = "webcal://ilyaask.github.io/plcscheduler/phys3.ics";
+    const rawUrl = "https://ilyaask.github.io/plcscheduler/phys3.ics";
+    const gcalUrl = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(rawUrl);
+
     if (isApple) {
-      btn.href = "webcal://ilyaask.github.io/plcscheduler/phys3.ics";
+      btn.href = iosUrl;
     } else {
-      btn.href = "https://ilyaask.github.io/plcscheduler/phys3.ics";
-      text.textContent = "Download / Import File";
+      btn.href = gcalUrl;
+      text.textContent = "Subscribe with Google Calendar";
       icon.innerHTML = '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>';
+      document.getElementById('sub-fallback').style.display = 'block';
     }
   </script>
 </body>
