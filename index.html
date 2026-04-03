@@ -12,11 +12,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0d0f14;
-      --surface:   #13161e;
-      --border:    #1f2330;
-      --text:      #e8eaf0;
-      --muted:     #6b7280;
+      --bg:        #f8fafc;
+      --surface:   #ffffff;
+      --border:    #e2e8f0;
+      --text:      #0f172a;
+      --muted:     #64748b;
       --p1-accent: #f97316;   /* orange  – Physics I  */
       --p2-accent: #3b82f6;   /* blue    – Physics II */
       --p3-accent: #a855f7;   /* purple  – Physics III*/
@@ -45,7 +45,7 @@
     }
     .site-header .badge {
       display: inline-block;
-      background: rgba(255,255,255,.05);
+      background: rgba(0,0,0,.04);
       border: 1px solid var(--border);
       border-radius: 999px;
       font-size: 12px;
@@ -103,7 +103,7 @@
 
     @media (hover: hover) {
       .card { transition: transform .2s ease, box-shadow .2s ease; }
-      .card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,.4); }
+      .card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,.08); }
     }
 
     /* coloured top stripe */
@@ -188,7 +188,7 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      background: rgba(255,255,255,.04);
+      background: rgba(0,0,0,.03);
       border: 1px solid var(--border);
       border-radius: 999px;
       padding: 5px 14px;
@@ -281,7 +281,7 @@
   <footer>
     Calendars are regenerated every Sunday night and reflect the upcoming week's PLC sessions.<br/>
     Physics Learning Center · Geology-Physics 307 · University of Cincinnati<br/>
-    <span style="margin-top:6px;display:inline-block">&#128231; Issues? Contact <a href="mailto:kapadiiy@mail.uc.edu" style="color:inherit">Ilyaas Kapadia &mdash; kapadiiy@mail.uc.edu</a></span>
+    <span style="margin-top:6px;display:inline-block">&#128231; Issues? Contact <a href="mailto:kapadiiy@mail.uc.edu" style="color:var(--muted)">Ilyaas Kapadia &mdash; kapadiiy@mail.uc.edu</a></span>
   </footer>
 
   <!-- Hidden hits counters (1px) to record page visits and subscribe clicks -->
@@ -294,7 +294,7 @@
     const QR_BASE = "https://ilyaask.github.io/plcscheduler/";
     const WEBCAL  = "webcal://ilyaask.github.io/plcscheduler/";
     const qrSize = Math.min(176, Math.round(window.innerWidth * 0.55));
-    const opts = { width: qrSize, margin: 0, color: { dark: "#0d0f14", light: "#ffffff" } };
+    const opts = { width: qrSize, margin: 0, color: { dark: "#000000", light: "#ffffff" } };
 
     QRCode.toCanvas(document.createElement("canvas"), QR_BASE + "qr1.html", opts, (err, canvas) => {
       if (!err) document.getElementById("qr1").appendChild(canvas);
